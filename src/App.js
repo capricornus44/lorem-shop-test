@@ -1,10 +1,14 @@
-import "./App.css"
+import React from "react"
+
+import GlobalStyles from "./styles/globalStyles"
+import Navbar from "./components/navbar"
 
 function App() {
   return (
-    <div className="App">
-      <h1>HELLO</h1>
-    </div>
+    <>
+      <GlobalStyles />
+      <Navbar />
+    </>
   )
 }
 
