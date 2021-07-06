@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components/macro"
+import styled from "styled-components"
 
 import heroBg from "../../assests/images/hero-bg.jpg"
 

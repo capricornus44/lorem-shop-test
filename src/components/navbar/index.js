@@ -12,7 +12,6 @@ import {
   UserMenuItems,
 } from "./NavbarStyled"
 import { menuData } from "../../db/menuData"
-// import userAvatar from "../../assests/images/avatar.png"
 
 const Navbar = () => {
   return (
