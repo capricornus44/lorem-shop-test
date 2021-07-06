@@ -14,7 +14,6 @@ export const Header = styled.header`
   align-items: center;
   padding: 0 15px;
 
-  background-color: teal;
   z-index: 100;
 
   @media screen and (min-width: 768px) {
@@ -112,5 +111,5 @@ export const UserMenuItems = styled.div`
   background-image: url(${userAvatar});
   background-position: center;
   background-size: cover;
-  background-repeat: norepeat;
+  background-repeat: no-repeat;
 `
