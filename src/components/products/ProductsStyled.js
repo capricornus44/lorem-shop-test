@@ -1,14 +1,14 @@
 import styled, { css } from "styled-components/macro"
 
 export const ProductsSection = styled.section`
-  margin-top: 20px;
+  padding-top: 20px;
 
   @media screen and (min-width: 768px) {
-    margin-top: 50px;
+    padding-top: 50px;
   }
 
   @media screen and (min-width: 1440px) {
-    margin-top: 82px;
+    padding-top: 82px;
   }
 `
 export const ProductsWrapper = styled.div`
@@ -97,6 +97,8 @@ export const ProductsGallery = styled.div`
   }
 `
 export const ProductsGalleryTitle = styled.h2`
+  margin-bottom: 32px;
+
   font-weight: 700;
   font-size: 32px;
   line-height: 1.2;
@@ -109,20 +111,18 @@ export const ProductsGalleryTitle = styled.h2`
   }
 `
 export const ProductsList = styled.ul`
-  margin-top: 32px;
-
-  @media screen and (min-width: 576px) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 32px;
+  @media screen and (max-width: 575px) {
+    display: block;
   }
 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 32px;
+
   @media screen and (min-width: 1440px) {
-    display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, auto);
-    gap: 32px;
   }
 `
 export const ProductCard = styled.li`
