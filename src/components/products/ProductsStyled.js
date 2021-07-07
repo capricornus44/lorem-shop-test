@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components/macro"
 
 export const ProductsSection = styled.section`
   margin-top: 20px;
@@ -24,7 +24,6 @@ export const ProductsWrapper = styled.div`
     padding: 0 60px;
   }
 `
-
 export const Advantages = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -32,7 +31,7 @@ export const Advantages = styled.div`
 
   color: #3a3a3a;
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: 576px) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }
@@ -87,6 +86,12 @@ export const AdvantagesItem = styled.div`
 export const ProductsGallery = styled.div`
   margin-top: 32px;
 
+  @media screen and (min-width: 576px) {
+    display: flex;
+    flex-direction: column;
+    aligh-items: center;
+  }
+
   @media screen and (min-width: 1440px) {
     margin-top: 104px;
   }
@@ -99,14 +104,29 @@ export const ProductsGalleryTitle = styled.h2`
   text-transform: capitalize;
   color: #3a3a3a;
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: 576px) {
     font-size: 40px;
   }
 `
 export const ProductsList = styled.ul`
   margin-top: 32px;
+
+  @media screen and (min-width: 576px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 32px;
+  }
 `
 export const ProductCard = styled.li`
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 0 16px 30px;
@@ -120,46 +140,141 @@ export const ProductCard = styled.li`
     }
   }
 
-  img {
-    margin-bottom: 16px;
+  &::before {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: rgba(58, 58, 58, 0.72);
+    opacity: 0;
   }
 
-  h3 {
-    margin-bottom: 8px;
-
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 1.2;
-
-    color: #3a3a3a;
+  &:hover::before {
+    opacity: 1;
+    height: 100%;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), height 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .category {
-    margin-bottom: 8px;
-
-    font-weight: 600;
-    font-size: 16px;
-    font-style: italic;
-    line-height: 1.2;
-
-    color: #898989;
+  &: hover .overlay {
+    opacity: 1;
+    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
+`
+export const ProductCardThumb = styled.div`
+  margin-bottom: 16px;
+`
+export const ProductImage = styled.img`
+  object-fit: fill;
+`
+export const ProductCardContent = styled.div``
 
-  .description {
-    margin-bottom: 8px;
+export const ProductName = styled.h3`
+  margin-bottom: 8px;
 
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.5;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.2;
 
-    color: #898989;
+  color: #3a3a3a;
+`
+export const ProductCategory = styled.p`
+  margin-bottom: 8px;
+
+  font-weight: 600;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.2;
+
+  color: #898989;
+`
+export const ProductDesc = styled.p`
+  margin-bottom: 8px;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+
+  color: #898989;
+`
+export const ProductPrice = styled.p`
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.5;
+
+  color: #3a3a3a;
+`
+export const ShowMoreBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 100%;
+  margin-top: 32px;
+  border: 1px solid #e89f71;
+  outline: none;
+
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  text-transform: capitalize;
+
+  color: #e89f71;
+  background-color: #ffffff;
+
+  @media screen and (min-width: 576px) {
+    width: 245px;
+    align-self: center;
   }
+`
+export const OverlayContent = styled.div`
+  position: absolute;
+  margin: 0;
+  top: 50%;
+  left: 42px;
+  right: 42px;
+  transform: translate(0, -50%);
+  opacity: 0;
+`
+export const OverlayAddBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 100%;
+  margin-bottom: 26px;
+  border: none;
+  outline: none;
 
-  .price {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 1.5;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
 
-    color: #3a3a3a;
-  }
+  color: #e89f71;
+  background-color: #ffffff;
+`
+export const OverlayIconBtns = styled.div`
+  display: flex;
+  justify-content: space-around;
+`
+const IconBtns = css`
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  column-gap: 10px;
+  border: none;
+  outline: none;
+
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #ffffff;
+  background-color: transparent;
+`
+export const OverlayShareBtn = styled.button`
+  ${IconBtns}
+`
+export const OverlayFavoriteBtn = styled.button`
+  ${IconBtns}
 `

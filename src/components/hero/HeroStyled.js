@@ -79,7 +79,7 @@ export const HeroForm = styled.form`
     background-color: #e89f71;
   }
 
-  @media screen and (min-width: 480px) {
+  @media screen and (min-width: 576px) {
     width: 450px;
     padding: 60px;
   }

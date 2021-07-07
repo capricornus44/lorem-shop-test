@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import axios from "axios"
+import { IoHeartOutline, IoShareSocial } from "react-icons/io5"
 
 import {
   ProductsSection,
@@ -9,24 +11,52 @@ import {
   ProductsGalleryTitle,
   ProductsList,
   ProductCard,
+  ProductCardThumb,
+  ProductImage,
+  ProductCardContent,
+  ProductName,
+  ProductCategory,
+  ProductDesc,
+  ProductPrice,
+  ShowMoreBtn,
+  OverlayContent,
+  OverlayAddBtn,
+  OverlayIconBtns,
+  OverlayShareBtn,
+  OverlayFavoriteBtn,
 } from "./ProductsStyled"
+
 import gobletIcon from "../../assests/icons/goblet.svg"
 import protectionIcon from "../../assests/icons/protection.svg"
 import freeIcon from "../../assests/icons/free-shipping.svg"
 import supportIcon from "../../assests/icons/support.svg"
 
-import { fetchProducts } from "../../services/fakeStoreAPI"
-
 const Products = () => {
   const [ourProducts, setOurProducts] = useState([])
-
-  const getProducts = async () => {
-    setOurProducts(await fetchProducts())
-  }
+  const [currentPage, setCurrentPage] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState("")
 
   useEffect(() => {
+    const getProducts = async () => {
+      try {
+        setIsLoading(true)
+
+        const response = await axios.get("https://fakestoreapi.com/products?page=${currentPage}&limit=8")
+        setOurProducts((ourProducts) => [...ourProducts, ...response.data])
+        setErrorMsg("")
+      } catch (error) {
+        setErrorMsg("Error while loading data. Try again later.")
+      } finally {
+        setIsLoading(false)
+      }
+    }
     getProducts()
-  }, [])
+  }, [currentPage])
+
+  const loadMore = () => {
+    setCurrentPage((currentPage) => currentPage + 1)
+  }
 
   return (
     <ProductsSection>
@@ -58,14 +88,37 @@ const Products = () => {
           <ProductsList>
             {ourProducts.map((product) => (
               <ProductCard key={product.id}>
-                <img src={product.image} alt={product.title} />
-                <h3>{product.title}</h3>
-                <p className="category">{product.category}</p>
-                <p className="description">{product.description}</p>
-                <p className="price">{`${product.price} $`}</p>
+                <ProductCardThumb>
+                  <ProductImage src={product.image} alt={product.title} />
+                </ProductCardThumb>
+                <ProductCardContent>
+                  <ProductName>{product.title}</ProductName>
+                  <ProductCategory>{product.category}</ProductCategory>
+                  <ProductDesc>{product.description}</ProductDesc>
+                  <ProductPrice>{`${product.price} $`}</ProductPrice>
+                </ProductCardContent>
+                <OverlayContent className="overlay">
+                  <OverlayAddBtn type="button">Add to cart</OverlayAddBtn>
+                  <OverlayIconBtns>
+                    <OverlayShareBtn>
+                      <IoShareSocial fontSize="20" />
+                      Share
+                    </OverlayShareBtn>
+                    <OverlayFavoriteBtn>
+                      <IoHeartOutline fontSize="20" />
+                      Like
+                    </OverlayFavoriteBtn>
+                  </OverlayIconBtns>
+                </OverlayContent>
               </ProductCard>
             ))}
           </ProductsList>
+          {errorMsg && (
+            <p>
+              <strong>{errorMsg}</strong>
+            </p>
+          )}
+          <ShowMoreBtn onClick={loadMore}>{isLoading ? "Loading..." : "Show more"}</ShowMoreBtn>
         </ProductsGallery>
       </ProductsWrapper>
     </ProductsSection>
